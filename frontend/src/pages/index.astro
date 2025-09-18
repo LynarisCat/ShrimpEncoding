@@ -1,5 +1,51 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import "../styles/global.css";
 ---
 
-<Layout />
+<Layout>
+  <div
+    class="rounded-2xl bg-gray-700 w-1/6 h-2/3 drop-shadow-2xl m-3 flex flex-col"
+  >
+    <!-- "encoding" selection -->
+
+    <button
+      class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      >QR-Shrimp</button
+    >
+    <button
+      class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      >Binary-Shrimp</button
+    >
+    <button
+      class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      >Shrimp 3</button
+    >
+    <button
+      class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      >Shrimp 4</button
+    >
+    <button
+      class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      >Shrimp 5</button
+    >
+    <button
+      class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      >Shrimp 5</button
+    >
+  </div>
+  <div
+    class="rounded-2xl bg-gray-700 w-2/3 h-2/3 drop-shadow-2xl m-3 flex flex-row"
+  >
+    <!-- "encoder" -->
+    <textarea
+      id="input-text"
+      class="block p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white resize-none"
+      placeholder="Write your text to en-shrimp here..."></textarea>
+
+    <div
+      class="block p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+    >
+    </div>
+  </div>
+</Layout>

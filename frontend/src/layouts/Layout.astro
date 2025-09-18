@@ -1,3 +1,7 @@
+---
+import "../styles/global.css";
+---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,7 +14,7 @@
     <meta name="generator" content={Astro.generator} />
     <title>Shrimp-Encoder</title>
   </head>
-  <body>
+  <body class="bg-gray-900 flex justify-center items-center">
     <slot />
   </body>
 </html>
@@ -23,5 +27,3 @@
     height: 100%;
   }
 </style>
-
-🦐
