@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Binary from "../components/binary";
 import "../styles/global.css";
 ---
 
@@ -10,11 +11,11 @@ import "../styles/global.css";
     <!-- "encoding" selection -->
     <button
       class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
-      >QR-Shrimp</button
+      >Binary-Shrimp</button
     >
     <button
       class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
-      >Binary-Shrimp</button
+      >QR-Shrimp</button
     >
     <button
       class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
@@ -41,20 +42,20 @@ import "../styles/global.css";
       <label for="switch" class="relative inline-block w-50 h-8 cursor-pointer">
         <input type="checkbox" id="switch" class="peer sr-only" />
         <span
-          class="absolute inset-0 rounded-full transition-colors duration-200 ease-in-out bg-neutral-700 peer-checked:bg-blue-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"
+          class="absolute inset-0 rounded-full transition-colors duration-200 ease-in-out bg-amber-700 peer-checked:bg-blue-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"
         ></span>
         <span
-          class="absolute top-1/2 start-0.5 -translate-y-1/2 h-8 w-25 rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full bg-neutral-400 peer-checked:bg-white"
+          class="absolute top-1/2 start-0.5 -translate-y-1/2 h-8 w-25 rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full bg-white"
         ></span>
         <!-- Left Text -->
         <span
-          class="absolute top-1/2 start-10 -translate-y-1/2 flex justify-center items-center size-5 peer-checked:text-white transition-colors duration-200 text-neutral-500"
+          class="absolute top-1/2 start-10 -translate-y-1/2 flex justify-center items-center size-5 peer-checked:text-white transition-colors duration-200 text-amber-600"
         >
           ENCODING
         </span>
         <!-- Right Text -->
         <span
-          class="absolute top-1/2 end-10 -translate-y-1/2 flex justify-center items-center size-5 peer-checked:text-blue-600 transition-colors duration-200 text-neutral-500"
+          class="absolute top-1/2 end-10 -translate-y-1/2 flex justify-center items-center size-5 peer-checked:text-blue-600 transition-colors duration-200 text-white"
         >
           DECODING
         </span>
@@ -62,16 +63,6 @@ import "../styles/global.css";
     </div>
 
     <!-- "encoder" -->
-    <div class="flex flex-row flex-1">
-      <textarea
-        id="input-text"
-        class="block p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white resize-none"
-        placeholder="Write your text to en-shrimp here..."></textarea>
-
-      <div
-        class="block p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
-      >
-      </div>
-    </div>
+    <Binary client:load />
   </div>
 </Layout>
