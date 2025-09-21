@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Binary from "../components/binary";
+import CodingSwitch from "../components/codingSwitch";
 import "../styles/global.css";
 ---
 
@@ -37,32 +37,6 @@ import "../styles/global.css";
   <div
     class="rounded-2xl bg-gray-700 w-2/3 h-2/3 drop-shadow-2xl m-3 flex flex-col"
   >
-    <!-- encoder/decoder switch -->
-    <div class="flex items-center m-auto mt-5 select-none">
-      <label for="switch" class="relative inline-block w-50 h-8 cursor-pointer">
-        <input type="checkbox" id="switch" class="peer sr-only" />
-        <span
-          class="absolute inset-0 rounded-full transition-colors duration-200 ease-in-out bg-amber-700 peer-checked:bg-blue-500 peer-disabled:opacity-50 peer-disabled:pointer-events-none"
-        ></span>
-        <span
-          class="absolute top-1/2 start-0.5 -translate-y-1/2 h-8 w-25 rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full bg-white"
-        ></span>
-        <!-- Left Text -->
-        <span
-          class="absolute top-1/2 start-10 -translate-y-1/2 flex justify-center items-center size-5 peer-checked:text-white transition-colors duration-200 text-amber-600"
-        >
-          ENCODING
-        </span>
-        <!-- Right Text -->
-        <span
-          class="absolute top-1/2 end-10 -translate-y-1/2 flex justify-center items-center size-5 peer-checked:text-blue-600 transition-colors duration-200 text-white"
-        >
-          DECODING
-        </span>
-      </label>
-    </div>
-
-    <!-- "encoder" -->
-    <Binary client:load />
+    <CodingSwitch client:load />
   </div>
 </Layout>
