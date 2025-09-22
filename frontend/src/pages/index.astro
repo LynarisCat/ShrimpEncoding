@@ -10,10 +10,12 @@ import "../styles/global.css";
   >
     <!-- "encoding" selection -->
     <button
+      id="setBinary"
       class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
       >Binary-Shrimp</button
     >
     <button
+      id="setQR"
       class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
       >QR-Shrimp</button
     >
@@ -39,4 +41,17 @@ import "../styles/global.css";
   >
     <CodingSwitch client:load />
   </div>
+  <script>
+    import { encoding } from "../store.js";
+
+    function setBinary() {
+      encoding.set("binary");
+    }
+    document.getElementById("setBinary")?.addEventListener("click", setBinary);
+
+    function setQR() {
+      encoding.set("qr");
+    }
+    document.getElementById("setQR")?.addEventListener("click", setQR);
+  </script>
 </Layout>
