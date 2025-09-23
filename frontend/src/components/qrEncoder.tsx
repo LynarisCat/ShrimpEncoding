@@ -1,22 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, type JSX } from "react";
 import QRCode from "qrcode";
 
 export default function QREncoder() {
-  function encode(text: string) {
-    const canvas = document.getElementById(
-      "canvas"
-    ) as HTMLCanvasElement | null;
+  let [qrcode, setQrcode] = useState<any>();
 
+  function encode(text: string) {
     if (text === "") {
-      const context = canvas?.getContext("2d");
-      context?.clearRect(0, 0, canvas!.width, canvas!.height);
-      return;
+      setQrcode(null);
     }
 
-    QRCode.toCanvas(canvas, text, function (error) {
-      if (error) console.error(error);
-      console.log("success!");
-    });
+    setQrcode(QRCode.create(text, { errorCorrectionLevel: "H" }));
+  }
+
+  function getQRCode() {
+    const divs: JSX.Element[] = [];
+
+    if (!qrcode) {
+      console.log(qrcode);
+      return divs;
+    }
+
+    for (let y = 0; y < qrcode.modules.size; y++) {
+      for (let x = 0; x < qrcode.modules.size; x++) {
+        console.log(qrcode.modules.size);
+
+        divs.push(
+          <div key={`${x}-${y}`} style={{ textAlign: "center" }}>
+            {qrcode.modules.get(x, y) ? "🦐" : "⬜"}
+          </div>
+        );
+      }
+    }
+
+    return divs;
   }
 
   return (
@@ -31,7 +47,18 @@ export default function QREncoder() {
       ></textarea>
 
       <div className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
-        <canvas id="canvas"></canvas>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${
+              qrcode ? qrcode.modules.size : 0
+            }, 1em)`,
+            lineHeight: "1em",
+            fontSize: "1em",
+          }}
+        >
+          {getQRCode()}
+        </div>
       </div>
     </div>
   );
