@@ -16,6 +16,10 @@ export default function CodingSwitch() {
 
   useEffect(() => {
     setSwitching(coding === "binary");
+
+    if (coding === "qr") {
+      setDecoding(false);
+    }
   }, [coding]);
 
   function coder() {
