@@ -27,8 +27,18 @@ export default function BinaryEncoder() {
         }}
       ></textarea>
 
-      <div className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
-        {encodedText}
+      <div className="m-5 flex-1 flex flex-col justify-center items-center">
+        <div className="overflow-auto p-2.5 m-2 flex-1 w-full text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+          {encodedText}
+        </div>
+        <button
+          className="bg-green-600 p-2 m-2 w-fit h-fit rounded-lg text-white font-bold hover:bg-green-700 cursor-pointer"
+          onClick={(e) => {
+            navigator.clipboard.writeText(encodedText);
+          }}
+        >
+          copy
+        </button>
       </div>
     </div>
   );
