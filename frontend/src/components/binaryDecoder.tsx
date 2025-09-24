@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { binDecInput, binDecOutput } from "../store";
 
 export default function BinaryDecoder() {
   let [decodedText, setDecodedText] = useState("");
 
+  useEffect(() => {
+    let textAreaInp = document.getElementById(
+      "input-text"
+    ) as HTMLTextAreaElement;
+
+    textAreaInp.value = binDecInput.get();
+    setDecodedText(binDecOutput.get());
+  }, []);
+
   function decode(text: string) {
     let output = "";
+    binDecInput.set(text);
 
     text = text.replace(/🦐/g, "1");
     text = text.replace(/🍤/g, "0");
@@ -16,6 +27,8 @@ export default function BinaryDecoder() {
     }
 
     setDecodedText(output);
+
+    binDecOutput.set(output);
   }
 
   return (

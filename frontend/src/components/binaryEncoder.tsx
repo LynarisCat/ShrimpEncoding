@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { binEncInput, binEncOutput } from "../store";
 
 export default function BinaryEncoder() {
   let [encodedText, setEncodedText] = useState("");
+
+  useEffect(() => {
+    let textAreaInp = document.getElementById(
+      "input-text"
+    ) as HTMLTextAreaElement;
+
+    textAreaInp.value = binEncInput.get();
+    setEncodedText(binEncOutput.get());
+  }, []);
 
   function encode(text: string) {
     let output = "";
@@ -14,6 +24,9 @@ export default function BinaryEncoder() {
     output = output.replace(/0/g, "🍤");
 
     setEncodedText(output);
+
+    binEncInput.set(text);
+    binEncOutput.set(encodedText);
   }
 
   return (
