@@ -6,11 +6,10 @@ This project explores different ways to encode text using shrimps
 - shrimp as bits
 
 # TO-DO
-- [ ] convert qrcode logic to canvas 
+- [x] convert qrcode logic to canvas 
 - [ ] make qrcode downloadable
 - [ ] add error correction slider to qrcode
-
 - [x] add copy button to binary
 - [x] save text in textboxes when tab/en-/decoding is switched
-
 - [ ] add more encodings
+- [ ] fix mobile view
