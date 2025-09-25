@@ -4,12 +4,11 @@ import QRCode from "qrcode";
 export default function QREncoder() {
   let [qrcode, setQrcode] = useState<any>();
 
-  let canvasSize = 450;
+  const canvasSize = 450;
 
   function encode(text: string) {
-    let canvas = document.getElementById("qrCanvas") as HTMLCanvasElement;
-    let ctx = canvas.getContext("2d");
-    ctx!.letterSpacing = "-1px";
+    const canvas = document.getElementById("qrCanvas") as HTMLCanvasElement;
+    const ctx = canvas.getContext("2d");
 
     ctx!.clearRect(0, 0, canvasSize, canvasSize);
 
@@ -36,6 +35,24 @@ export default function QREncoder() {
     }
   }
 
+  function downloadImg() {
+    const canvas = document.getElementById("qrCanvas") as HTMLCanvasElement;
+    const img = canvas.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.href = img;
+    link.setAttribute("download", `QR_Shrimp.png`);
+
+    // Append to html link element page
+    document.body.appendChild(link);
+
+    // Start download
+    link.click();
+
+    // Clean up and remove the link
+    link.parentNode!.removeChild(link);
+  }
+
   return (
     <div className="flex flex-row flex-1 overflow-y-auto">
       <textarea
@@ -47,10 +64,24 @@ export default function QREncoder() {
         }}
       ></textarea>
 
-      <div className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
-        <canvas id="qrCanvas" width={canvasSize} height={canvasSize}>
+      <div className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white flex flex-col items-center">
+        <canvas
+          id="qrCanvas"
+          width={canvasSize}
+          height={canvasSize}
+          className="h-fit w-fit"
+        >
           <p>Your browser does not support canvas.</p>
         </canvas>
+
+        <button
+          className="bg-green-600 p-2 m-2 w-fit h-fit rounded-lg text-white font-bold hover:bg-green-700 cursor-pointer"
+          onClick={(e) => {
+            downloadImg();
+          }}
+        >
+          Download
+        </button>
       </div>
     </div>
   );
