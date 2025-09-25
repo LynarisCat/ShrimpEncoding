@@ -43,13 +43,8 @@ export default function QREncoder() {
     link.href = img;
     link.setAttribute("download", `QR_Shrimp.png`);
 
-    // Append to html link element page
     document.body.appendChild(link);
-
-    // Start download
     link.click();
-
-    // Clean up and remove the link
     link.parentNode!.removeChild(link);
   }
 
