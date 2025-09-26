@@ -3,6 +3,10 @@ import QRCode from "qrcode";
 
 export default function QREncoder() {
   let [qrcode, setQrcode] = useState<any>();
+  let [errorCorrection, setErrorCorrection] =
+    useState<QRCode.QRCodeErrorCorrectionLevel>("L");
+
+  const errorLevels = ["L", "M", "Q", "H"];
 
   const canvasSize = 450;
 
@@ -17,16 +21,18 @@ export default function QREncoder() {
       return;
     }
 
-    setQrcode(QRCode.create(text, { errorCorrectionLevel: "H" }));
+    let qr = QRCode.create(text, { errorCorrectionLevel: errorCorrection });
 
-    let lineH = canvasSize / qrcode.modules.size;
+    setQrcode(qr);
+
+    let lineH = canvasSize / qr.modules.size;
 
     ctx!.font = lineH + "px Arial";
 
-    for (let y = 0; y < qrcode.modules.size; y++) {
-      for (let x = 0; x < qrcode.modules.size; x++) {
+    for (let y = 0; y < qr.modules.size; y++) {
+      for (let x = 0; x < qr.modules.size; x++) {
         ctx!.fillText(
-          qrcode.modules.get(x, y) ? "🦐" : "⬜",
+          qr.modules.get(x, y) ? "🦐" : "⬜",
           lineH * x,
           lineH * (y + 1),
           canvasSize
@@ -50,14 +56,42 @@ export default function QREncoder() {
 
   return (
     <div className="flex flex-row flex-1 overflow-y-auto">
-      <textarea
-        id="input-text"
-        className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white resize-none test"
-        placeholder="Write your text to en-shrimp here..."
-        onChange={(e) => {
-          encode(e.target.value);
-        }}
-      ></textarea>
+      <div className="overflow-auto p-2.5 m-5 flex-1 flex flex-col">
+        <textarea
+          id="input-text"
+          className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white resize-none"
+          placeholder="Write your text to en-shrimp here..."
+          onChange={(e) => {
+            encode(e.target.value);
+          }}
+        ></textarea>
+
+        <label
+          htmlFor="error-correct-slider"
+          className="block mb-2 text-sm font-medium text-white"
+        >
+          Error correction level
+        </label>
+        <input
+          id="error-correct-slider"
+          type="range"
+          min="0"
+          max="3"
+          value={errorLevels.indexOf(errorCorrection)}
+          className="w-full h-2 rounded-lg cursor-pointer bg-gray-700"
+          onChange={(e) => {
+            setErrorCorrection(
+              errorLevels[
+                e.target.valueAsNumber
+              ] as QRCode.QRCodeErrorCorrectionLevel
+            );
+            let textAreaInp = document.getElementById(
+              "input-text"
+            ) as HTMLTextAreaElement;
+            encode(textAreaInp.value);
+          }}
+        />
+      </div>
 
       <div className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white flex flex-col items-center">
         <canvas
