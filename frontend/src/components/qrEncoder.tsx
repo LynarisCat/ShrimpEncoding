@@ -72,6 +72,10 @@ export default function QREncoder() {
         <button
           className="bg-green-600 p-2 m-2 w-fit h-fit rounded-lg text-white font-bold hover:bg-green-700 cursor-pointer"
           onClick={(e) => {
+            let textAreaInp = document.getElementById(
+              "input-text"
+            ) as HTMLTextAreaElement;
+            encode(textAreaInp.value);
             downloadImg();
           }}
         >
