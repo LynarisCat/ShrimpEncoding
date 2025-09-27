@@ -2,28 +2,20 @@ import React, { useState } from "react";
 import QRCode from "qrcode";
 
 export default function QREncoder() {
-  let [qrcode, setQrcode] = useState<any>();
   let [errorCorrection, setErrorCorrection] =
-    useState<QRCode.QRCodeErrorCorrectionLevel>("L");
+    useState<QRCode.QRCodeErrorCorrectionLevel>("H");
 
   const errorLevels = ["L", "M", "Q", "H"];
 
   const canvasSize = 450;
 
-  function encode(text: string) {
+  function encode(text: string, errorLevel: QRCode.QRCodeErrorCorrectionLevel) {
     const canvas = document.getElementById("qrCanvas") as HTMLCanvasElement;
     const ctx = canvas.getContext("2d");
 
     ctx!.clearRect(0, 0, canvasSize, canvasSize);
 
-    if (text === "") {
-      setQrcode(null);
-      return;
-    }
-
-    let qr = QRCode.create(text, { errorCorrectionLevel: errorCorrection });
-
-    setQrcode(qr);
+    let qr = QRCode.create(text, { errorCorrectionLevel: errorLevel });
 
     let lineH = canvasSize / qr.modules.size;
 
@@ -62,7 +54,7 @@ export default function QREncoder() {
           className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white resize-none"
           placeholder="Write your text to en-shrimp here..."
           onChange={(e) => {
-            encode(e.target.value);
+            encode(e.target.value, errorCorrection);
           }}
         ></textarea>
 
@@ -80,15 +72,14 @@ export default function QREncoder() {
           value={errorLevels.indexOf(errorCorrection)}
           className="w-full h-2 rounded-lg cursor-pointer bg-gray-700"
           onChange={(e) => {
-            setErrorCorrection(
-              errorLevels[
-                e.target.valueAsNumber
-              ] as QRCode.QRCodeErrorCorrectionLevel
-            );
+            let newErrLvl = errorLevels[
+              e.target.valueAsNumber
+            ] as QRCode.QRCodeErrorCorrectionLevel;
+            setErrorCorrection(newErrLvl);
             let textAreaInp = document.getElementById(
               "input-text"
             ) as HTMLTextAreaElement;
-            encode(textAreaInp.value);
+            encode(textAreaInp.value, newErrLvl);
           }}
         />
       </div>
@@ -109,7 +100,7 @@ export default function QREncoder() {
             let textAreaInp = document.getElementById(
               "input-text"
             ) as HTMLTextAreaElement;
-            encode(textAreaInp.value);
+            encode(textAreaInp.value, errorCorrection);
             downloadImg();
           }}
         >
