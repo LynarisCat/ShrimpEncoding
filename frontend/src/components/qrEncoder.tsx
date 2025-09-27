@@ -1,16 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import QRCode from "qrcode";
 
 export default function QREncoder() {
   let [errorCorrection, setErrorCorrection] =
     useState<QRCode.QRCodeErrorCorrectionLevel>("H");
+  let [canvasSize, setCanvasSize] = useState(450);
+
+  useEffect(() => {
+    function updateSize() {
+      let qrCont = document.getElementById("qr-container") as HTMLDivElement;
+      setCanvasSize(qrCont?.clientWidth - 20);
+    }
+
+    window.addEventListener("resize", updateSize);
+    updateSize();
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, [setCanvasSize]);
 
   const errorLevels = ["L", "M", "Q", "H"];
 
-  const canvasSize = 450;
-
   function encode(text: string, errorLevel: QRCode.QRCodeErrorCorrectionLevel) {
-    const canvas = document.getElementById("qrCanvas") as HTMLCanvasElement;
+    const canvas = document.getElementById("qr-canvas") as HTMLCanvasElement;
     const ctx = canvas.getContext("2d");
 
     ctx!.clearRect(0, 0, canvasSize, canvasSize);
@@ -34,7 +45,7 @@ export default function QREncoder() {
   }
 
   function downloadImg() {
-    const canvas = document.getElementById("qrCanvas") as HTMLCanvasElement;
+    const canvas = document.getElementById("qr-canvas") as HTMLCanvasElement;
     const img = canvas.toDataURL("image/png");
 
     const link = document.createElement("a");
@@ -84,9 +95,12 @@ export default function QREncoder() {
         />
       </div>
 
-      <div className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white flex flex-col items-center">
+      <div
+        id="qr-container"
+        className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white flex flex-col items-center justify-center"
+      >
         <canvas
-          id="qrCanvas"
+          id="qr-canvas"
           width={canvasSize}
           height={canvasSize}
           className="h-fit w-fit"

@@ -12,6 +12,6 @@ This project explores different ways to encode text using shrimps
 - [x] add copy button to binary
 - [x] save text in textboxes when tab/en-/decoding is switched
 - [x] fix qr output not always refreshing correctly
-- [ ] add more encodings
+- [x] make qr canvas scale with screen size
 - [ ] fix mobile view
-- [ ] make qr canvas scale with screen size
+- [ ] add more encodings
