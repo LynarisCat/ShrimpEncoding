@@ -20,8 +20,9 @@ import "../styles/global.css";
       >QR-Shrimp</button
     >
     <button
+      id="setMorse"
       class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
-      >Shrimp 3</button
+      >Morshrimp</button
     >
     <button
       class="text-white font-bold bg-blue-500 m-5 p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
@@ -53,5 +54,10 @@ import "../styles/global.css";
       encoding.set("qr");
     }
     document.getElementById("setQR")?.addEventListener("click", setQR);
+
+    function setMorse() {
+      encoding.set("morse");
+    }
+    document.getElementById("setMorse")?.addEventListener("click", setMorse);
   </script>
 </Layout>

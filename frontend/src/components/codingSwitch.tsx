@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BinaryDecoder from "./binaryDecoder";
-import BinaryEncoder from "./binaryEncoder";
+import Coder from "./coder";
 import QREncoder from "./qrEncoder";
 
 import { encoding } from "../store";
@@ -15,7 +14,7 @@ export default function CodingSwitch() {
   });
 
   useEffect(() => {
-    setSwitching(coding === "binary");
+    setSwitching(coding !== "qr" && coding !== "");
 
     if (coding === "qr") {
       setDecoding(false);
@@ -23,13 +22,21 @@ export default function CodingSwitch() {
   }, [coding]);
 
   function coder() {
-    if (coding === "binary") {
-      return decoding ? <BinaryDecoder /> : <BinaryEncoder />;
-    } else if (coding === "qr") {
-      return <QREncoder />;
+    if (coding === "") {
+      return <p> Choose a coding variant </p>;
     }
 
-    return <div>Select an encoding type.</div>;
+    if (coding === "qr") {
+      return <QREncoder />;
+    } else {
+      return (
+        <Coder
+          key={`${coding}-${decoding}`}
+          decoding={decoding}
+          codingType={coding}
+        />
+      );
+    }
   }
 
   return (

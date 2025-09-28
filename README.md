@@ -15,3 +15,6 @@ This project explores different ways to encode text using shrimps
 - [x] make qr canvas scale with screen size
 - [ ] fix mobile view
 - [ ] add more encodings
+  - [ ] morse code
+  - [ ] base64 (sea emoji based)
+- [ ] add notes about codings (morse only english letters + numbers)
