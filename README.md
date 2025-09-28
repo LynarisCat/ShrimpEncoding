@@ -18,3 +18,4 @@ This project explores different ways to encode text using shrimps
   - [ ] morse code
   - [ ] base64 (sea emoji based)
 - [ ] add notes about codings (morse only english letters + numbers)
+- [ ] add identifier for tab which the user is currently in
