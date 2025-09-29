@@ -1,22 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import QRCode from "qrcode";
 
 export default function QREncoder() {
   let [errorCorrection, setErrorCorrection] =
     useState<QRCode.QRCodeErrorCorrectionLevel>("H");
-  let [canvasSize, setCanvasSize] = useState(450);
-
-  useEffect(() => {
-    function updateSize() {
-      let qrCont = document.getElementById("qr-container") as HTMLDivElement;
-      setCanvasSize(qrCont?.clientWidth - 20);
-    }
-
-    window.addEventListener("resize", updateSize);
-    updateSize();
-
-    return () => window.removeEventListener("resize", updateSize);
-  }, [setCanvasSize]);
+  const canvasSize = 600;
 
   const errorLevels = ["L", "M", "Q", "H"];
 
@@ -58,8 +46,8 @@ export default function QREncoder() {
   }
 
   return (
-    <div className="flex flex-row flex-1 overflow-y-auto">
-      <div className="overflow-auto p-2.5 m-5 flex-1 flex flex-col">
+    <div className="flex flex-col md:flex-row flex-1 overflow-y-auto h-full">
+      <div className="overflow-auto p-2.5 m-5 flex-1 flex flex-col min-h-[200px]">
         <textarea
           id="input-text"
           className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white resize-none"
@@ -95,19 +83,20 @@ export default function QREncoder() {
         />
       </div>
 
-      <div
-        id="qr-container"
-        className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white flex flex-col items-center justify-center"
-      >
-        <canvas
-          id="qr-canvas"
-          width={canvasSize}
-          height={canvasSize}
-          className="h-fit w-fit"
+      <div className="m-5 flex-1 flex flex-col justify-center items-center">
+        <div
+          id="qr-container"
+          className="aspect-square flex overflow-auto m-2 max-h-[40vh] md:max-h-max w-full md:h-auto flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white items-center justify-center"
         >
-          <p>Your browser does not support canvas.</p>
-        </canvas>
-
+          <canvas
+            id="qr-canvas"
+            width={canvasSize}
+            height={canvasSize}
+            className="w-full max-w-8/9 h-auto object-contain m-auto"
+          >
+            <p>Your browser does not support canvas.</p>
+          </canvas>
+        </div>
         <button
           className="bg-green-600 p-2 m-2 w-fit h-fit rounded-lg text-white font-bold hover:bg-green-700 cursor-pointer"
           onClick={(e) => {
