@@ -11,29 +11,29 @@ import "../styles/global.css";
     <!-- "encoding" selection -->
     <button
       id="setBinary"
-      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
       >Binary-Shrimp</button
     >
     <button
       id="setQR"
-      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
       >QR-Shrimp</button
     >
     <button
       id="setMorse"
-      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
       >Morshrimp</button
     >
     <button
-      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
       >Shrimp 4</button
     >
     <button
-      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
       >Shrimp 5</button
     >
     <button
-      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-700 transition"
+      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
       >Shrimp 5</button
     >
   </div>
@@ -45,19 +45,62 @@ import "../styles/global.css";
   <script>
     import { encoding } from "../store.js";
 
+    let binBtn = document.getElementById("setBinary");
+    let qrBtn = document.getElementById("setQR");
+    let morBtn = document.getElementById("setMorse");
+
     function setBinary() {
       encoding.set("binary");
+
+      if (!binBtn?.classList.contains("bg-blue-700")) {
+        binBtn?.classList.remove("bg-blue-500");
+        binBtn?.classList.add("bg-blue-700");
+
+        if (qrBtn?.classList.contains("bg-blue-700")) {
+          qrBtn?.classList.remove("bg-blue-700");
+          qrBtn?.classList.add("bg-blue-500");
+        } else if (morBtn?.classList.contains("bg-blue-700")) {
+          morBtn?.classList.remove("bg-blue-700");
+          morBtn?.classList.add("bg-blue-500");
+        }
+      }
     }
-    document.getElementById("setBinary")?.addEventListener("click", setBinary);
+    binBtn?.addEventListener("click", setBinary);
 
     function setQR() {
       encoding.set("qr");
+
+      if (!qrBtn?.classList.contains("bg-blue-700")) {
+        qrBtn?.classList.remove("bg-blue-500");
+        qrBtn?.classList.add("bg-blue-700");
+
+        if (binBtn?.classList.contains("bg-blue-700")) {
+          binBtn?.classList.remove("bg-blue-700");
+          binBtn?.classList.add("bg-blue-500");
+        } else if (morBtn?.classList.contains("bg-blue-700")) {
+          morBtn?.classList.remove("bg-blue-700");
+          morBtn?.classList.add("bg-blue-500");
+        }
+      }
     }
-    document.getElementById("setQR")?.addEventListener("click", setQR);
+    qrBtn?.addEventListener("click", setQR);
 
     function setMorse() {
       encoding.set("morse");
+
+      if (!morBtn?.classList.contains("bg-blue-700")) {
+        morBtn?.classList.remove("bg-blue-500");
+        morBtn?.classList.add("bg-blue-700");
+
+        if (qrBtn?.classList.contains("bg-blue-700")) {
+          qrBtn?.classList.remove("bg-blue-700");
+          qrBtn?.classList.add("bg-blue-500");
+        } else if (binBtn?.classList.contains("bg-blue-700")) {
+          binBtn?.classList.remove("bg-blue-700");
+          binBtn?.classList.add("bg-blue-500");
+        }
+      }
     }
-    document.getElementById("setMorse")?.addEventListener("click", setMorse);
+    morBtn?.addEventListener("click", setMorse);
   </script>
 </Layout>
