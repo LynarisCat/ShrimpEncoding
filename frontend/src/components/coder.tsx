@@ -183,7 +183,10 @@ export default function BinaryEncoder({
       ></textarea>
 
       <div className="m-5 flex-1 flex flex-col justify-center items-center">
-        <div className="overflow-auto p-2.5 m-2 flex-1 w-full text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white">
+        <div
+          id="result"
+          className="overflow-auto p-2.5 m-2 flex-1 w-full text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+        >
           {codedText}
         </div>
         <button
@@ -193,7 +196,17 @@ export default function BinaryEncoder({
               "input-text"
             ) as HTMLTextAreaElement;
             decoding ? decode(textAreaInp.value) : encode(textAreaInp.value);
-            navigator.clipboard.writeText(codedText);
+
+            let result = document.getElementById("result") as HTMLDivElement;
+
+            const storage = document.createElement("textarea");
+            storage.value = result.innerHTML;
+            result.appendChild(storage);
+
+            storage.select();
+            storage.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            result.removeChild(storage);
           }}
         >
           copy
