@@ -22,19 +22,12 @@ import "../styles/global.css";
     <button
       id="setMorse"
       class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
-      >Morshrimp</button
+      >Morsehrimp</button
     >
     <button
+      id="setBase"
       class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
-      >Shrimp 4</button
-    >
-    <button
-      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
-      >Shrimp 5</button
-    >
-    <button
-      class="text-white font-bold bg-blue-500 m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
-      >Shrimp 5</button
+      >BasedShrimp</button
     >
   </div>
   <div
@@ -45,62 +38,29 @@ import "../styles/global.css";
   <script>
     import { encoding } from "../store.js";
 
-    let binBtn = document.getElementById("setBinary");
-    let qrBtn = document.getElementById("setQR");
-    let morBtn = document.getElementById("setMorse");
+    const buttons = {
+      binary: document.getElementById("setBinary"),
+      qr: document.getElementById("setQR"),
+      morse: document.getElementById("setMorse"),
+      base: document.getElementById("setBase"),
+    };
 
-    function setBinary() {
-      encoding.set("binary");
+    function setEncoding(type: string) {
+      encoding.set(type);
 
-      if (!binBtn?.classList.contains("bg-blue-700")) {
-        binBtn?.classList.remove("bg-blue-500");
-        binBtn?.classList.add("bg-blue-700");
-
-        if (qrBtn?.classList.contains("bg-blue-700")) {
-          qrBtn?.classList.remove("bg-blue-700");
-          qrBtn?.classList.add("bg-blue-500");
-        } else if (morBtn?.classList.contains("bg-blue-700")) {
-          morBtn?.classList.remove("bg-blue-700");
-          morBtn?.classList.add("bg-blue-500");
+      Object.entries(buttons).forEach(([btnType, btn]) => {
+        if (btnType === type) {
+          btn?.classList.remove("bg-blue-500");
+          btn?.classList.add("bg-blue-700");
+        } else {
+          btn?.classList.remove("bg-blue-700");
+          btn?.classList.add("bg-blue-500");
         }
-      }
+      });
     }
-    binBtn?.addEventListener("click", setBinary);
 
-    function setQR() {
-      encoding.set("qr");
-
-      if (!qrBtn?.classList.contains("bg-blue-700")) {
-        qrBtn?.classList.remove("bg-blue-500");
-        qrBtn?.classList.add("bg-blue-700");
-
-        if (binBtn?.classList.contains("bg-blue-700")) {
-          binBtn?.classList.remove("bg-blue-700");
-          binBtn?.classList.add("bg-blue-500");
-        } else if (morBtn?.classList.contains("bg-blue-700")) {
-          morBtn?.classList.remove("bg-blue-700");
-          morBtn?.classList.add("bg-blue-500");
-        }
-      }
-    }
-    qrBtn?.addEventListener("click", setQR);
-
-    function setMorse() {
-      encoding.set("morse");
-
-      if (!morBtn?.classList.contains("bg-blue-700")) {
-        morBtn?.classList.remove("bg-blue-500");
-        morBtn?.classList.add("bg-blue-700");
-
-        if (qrBtn?.classList.contains("bg-blue-700")) {
-          qrBtn?.classList.remove("bg-blue-700");
-          qrBtn?.classList.add("bg-blue-500");
-        } else if (binBtn?.classList.contains("bg-blue-700")) {
-          binBtn?.classList.remove("bg-blue-700");
-          binBtn?.classList.add("bg-blue-500");
-        }
-      }
-    }
-    morBtn?.addEventListener("click", setMorse);
+    Object.entries(buttons).forEach(([type, btn]) => {
+      btn?.addEventListener("click", () => setEncoding(type));
+    });
   </script>
 </Layout>

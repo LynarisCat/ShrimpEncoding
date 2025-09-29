@@ -14,9 +14,9 @@ This project explores different ways to encode text using shrimps
 - [x] fix qr output not always refreshing correctly
 - [x] make qr canvas scale with screen size
 - [x] fix mobile view
-- [ ] copy button on mobile fix
-- [ ] add more encodings
+- [x] copy button on mobile fix
+- [x] add more encodings
   - [x] morse code
-  - [ ] base64 (sea emoji based)
+  - [x] base64 (sea emoji based)
 - [ ] add notes about codings (morse only english letters + numbers)
 - [x] add identifier for tab which the user is currently in

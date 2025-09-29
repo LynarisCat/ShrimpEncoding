@@ -11,3 +11,8 @@ export const morEncInput = atom("");
 export const morEncOutput = atom("");
 export const morDecInput = atom("");
 export const morDecOutput = atom("");
+
+export const basEncInput = atom("");
+export const basEncOutput = atom("");
+export const basDecInput = atom("");
+export const basDecOutput = atom("");

@@ -8,8 +8,13 @@ import {
   morEncOutput,
   morDecInput,
   morDecOutput,
+  basEncInput,
+  basEncOutput,
+  basDecInput,
+  basDecOutput,
 } from "../store";
 import type { PreinitializedWritableAtom } from "nanostores";
+import { shrimpEncodeMap, shrimpDecodeMap } from "../assets/shrimpBaseAplh";
 
 export default function BinaryEncoder({
   decoding,
@@ -33,6 +38,11 @@ export default function BinaryEncoder({
         outputTxt = morDecOutput;
         decode = decodeMor;
         break;
+      case "base":
+        inputTxt = basDecInput;
+        outputTxt = basDecOutput;
+        decode = decodeBas;
+        break;
     }
   } else {
     switch (codingType) {
@@ -45,6 +55,11 @@ export default function BinaryEncoder({
         inputTxt = morEncInput;
         outputTxt = morEncOutput;
         encode = encodeMor;
+        break;
+      case "base":
+        inputTxt = basEncInput;
+        outputTxt = basEncOutput;
+        encode = encodeBas;
         break;
     }
   }
@@ -154,7 +169,7 @@ export default function BinaryEncoder({
 
     setcodedText(output);
 
-    outputTxt.set(codedText);
+    outputTxt.set(output);
   }
 
   function decodeMor(text: string) {
@@ -164,6 +179,56 @@ export default function BinaryEncoder({
       .split(" ")
       .map((code) => reverseMorseAlphabet[code] || "")
       .join("");
+
+    setcodedText(output);
+
+    outputTxt.set(output);
+  }
+
+  // Bse 64 ------------------------------------------------
+
+  function encodeBas(text: string) {
+    inputTxt.set(text);
+
+    let base = btoa(text);
+
+    let output = base
+      .split("")
+      .map(function (e) {
+        return (
+          shrimpEncodeMap[
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".indexOf(
+              e
+            )
+          ] || " "
+        );
+      })
+      .join("");
+
+    setcodedText(output);
+
+    outputTxt.set(output);
+  }
+
+  function decodeBas(text: string) {
+    inputTxt.set(text);
+
+    if (text === "") {
+      return;
+    }
+
+    let mat = text.match(/[\p{Emoji}]{1,2}/gu) || [""];
+
+    let output = mat
+      .map(function (e: string) {
+        return (
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"[
+            shrimpDecodeMap[e]
+          ] || " "
+        );
+      })
+      .join("");
+    output = atob(output);
 
     setcodedText(output);
 
