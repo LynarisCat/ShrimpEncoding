@@ -23,7 +23,14 @@ export default function CodingSwitch() {
 
   function coder() {
     if (coding === "") {
-      return <p> Choose a coding variant </p>;
+      return (
+        <div className="flex justify-center items-center h-full">
+          <p className="text-white font-bold text-xl md:text-4xl">
+            {" "}
+            Choose a coding variant{" "}
+          </p>
+        </div>
+      );
     }
 
     if (coding === "qr") {
