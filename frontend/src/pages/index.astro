@@ -44,7 +44,7 @@ import "../styles/global.css";
     id="note-cont"
   >
     <p class="text-white font-bold m-4 mb-0">Note</p>
-    <p id="note" class="text-gray-200 m-5 mt-1">/</p>
+    <p id="note" class="text-gray-200 m-5 mt-1 text-xs md:text-xl">/</p>
   </div>
 
   <script>
@@ -54,7 +54,7 @@ import "../styles/global.css";
 
     const notes: Record<EncodingType, string> = {
       binary: "Emojis can't be encoded",
-      qr: "Use the error correction slider to make the qr-code more robust but also add size",
+      qr: "Use the error correction slider to make the qr-code more robust but also add size. For good scanability the code should be placed on a dark background.",
       morse: "Only english characters and numbers (and space) can be used",
       base: "Emojis can't be encoded",
     };
