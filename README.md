@@ -1,11 +1,14 @@
 # ShrimpEncoding
-This project explores different ways to encode text using shrimps
+This project explores different ways to encode text using shrimps.
+The idea originated from me and some friends using the shrimp emoji 🦐 to respond to anything.
+Then I tought it would be fun to actually be able to write something using 🦐.
+The result is what you see here.
+You can try it out on [the shrimp site](https://shrimp.lynaris.de)
 
-## Ideas
-- shrimp in qr-codes
-- shrimp as bits
+
 
 # TO-DO
+All ToDos finished
 - [x] convert qrcode logic to canvas 
 - [x] make qrcode downloadable
 - [x] add error correction slider to qrcode
