@@ -8,7 +8,7 @@ You can try it out on [the shrimp site](https://shrimp.lynaris.de)
 
 
 # TO-DO
-All ToDos finished
+
 - [x] convert qrcode logic to canvas 
 - [x] make qrcode downloadable
 - [x] add error correction slider to qrcode
@@ -24,3 +24,5 @@ All ToDos finished
 - [x] add identifier for tab which the user is currently in
 - [x] add notes about codings (morse only english letters + numbers)
 - [x] style choosing text
+- [ ] fix en-shrim text to also say de-shrimp
+- [ ] display qrcode in full in 16:9
