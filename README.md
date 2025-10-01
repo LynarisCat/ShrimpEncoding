@@ -24,5 +24,5 @@ You can try it out on [the shrimp site](https://shrimp.lynaris.de)
 - [x] add identifier for tab which the user is currently in
 - [x] add notes about codings (morse only english letters + numbers)
 - [x] style choosing text
-- [ ] fix en-shrim text to also say de-shrimp
-- [ ] display qrcode in full in 16:9
+- [x] fix en-shrim text to also say de-shrimp
+- [x] display qrcode in full in 16:9

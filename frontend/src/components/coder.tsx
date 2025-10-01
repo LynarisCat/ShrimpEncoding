@@ -241,7 +241,9 @@ export default function BinaryEncoder({
       <textarea
         id="input-text"
         className="overflow-auto p-2.5 m-5 flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white resize-none min-h-40"
-        placeholder="Write your text to en-shrimp here..."
+        placeholder={
+          "Write your text to " + (decoding ? "de" : "en") + "-shrimp here..."
+        }
         onChange={(e) => {
           decoding ? decode(e.target.value) : encode(e.target.value);
         }}

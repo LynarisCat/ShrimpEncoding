@@ -86,7 +86,7 @@ export default function QREncoder() {
       <div className="m-5 flex-1 flex flex-col justify-center items-center">
         <div
           id="qr-container"
-          className="aspect-square flex overflow-auto m-2 max-h-[40vh] md:max-h-max w-full md:h-auto flex-1 text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white items-center justify-center"
+          className="aspect-square flex overflow-auto m-2 max-h-[40vh] md:max-h-max md:h-auto text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white items-center justify-center"
         >
           <canvas
             id="qr-canvas"
