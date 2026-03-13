@@ -16,3 +16,8 @@ export const basEncInput = atom("");
 export const basEncOutput = atom("");
 export const basDecInput = atom("");
 export const basDecOutput = atom("");
+
+export const emoEncInput = atom("");
+export const emoEncOutput = atom("");
+export const emoDecInput = atom("");
+export const emoDecOutput = atom("");

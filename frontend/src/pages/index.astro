@@ -32,6 +32,11 @@ import "../styles/global.css";
         class="text-white font-bold bg-blue-500 m-2 md:m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
         >Based-Shrimp</button
       >
+      <button
+        id="setEmo"
+        class="text-white font-bold bg-blue-500 m-2 md:m-5 p-2 md:p-5 rounded-2xl cursor-pointer hover:bg-blue-800 transition"
+        >Evasion-Shrimp</button
+      >
     </div>
     <div
       class="rounded-2xl bg-gray-700 w-5/6 md:w-2/3 h-fit min-h-2/3 md:h-2/3 drop-shadow-2xl m-3 mb-0 flex flex-col"
@@ -50,13 +55,14 @@ import "../styles/global.css";
   <script>
     import { encoding } from "../store.js";
 
-    type EncodingType = "binary" | "qr" | "morse" | "base";
+    type EncodingType = "binary" | "qr" | "morse" | "base" | "emo";
 
     const notes: Record<EncodingType, string> = {
       binary: "Emojis can't be encoded",
       qr: "Use the error correction slider to make the qr-code more robust but also add size. For good scanability the code should be placed on a dark background.",
       morse: "Only english characters and numbers (and space) can be used",
       base: "Emojis can't be encoded",
+      emo: "",
     };
 
     const buttons: Record<EncodingType, HTMLElement | null> = {
@@ -64,6 +70,7 @@ import "../styles/global.css";
       qr: document.getElementById("setQR"),
       morse: document.getElementById("setMorse"),
       base: document.getElementById("setBase"),
+      emo: document.getElementById("setEmo"),
     };
 
     let noteElm = document.getElementById("note");

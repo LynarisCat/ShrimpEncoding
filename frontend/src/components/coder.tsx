@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
+import { useState, useEffect } from "react";
 import {
   binEncInput,
   binEncOutput,
@@ -11,7 +12,11 @@ import {
   basEncInput,
   basEncOutput,
   basDecInput,
-  basDecOutput,
+  basDecOutput,  
+  emoEncInput,
+  emoEncOutput,
+  emoDecInput,
+  emoDecOutput,
 } from "../store";
 import type { PreinitializedWritableAtom } from "nanostores";
 import { shrimpEncodeMap, shrimpDecodeMap } from "../assets/shrimpBaseAplh";
@@ -42,6 +47,11 @@ export default function BinaryEncoder({
         inputTxt = basDecInput;
         outputTxt = basDecOutput;
         decode = decodeBas;
+        break;      
+      case "emo":
+        inputTxt = emoDecInput;
+        outputTxt = emoDecOutput;
+        decode = decodeEmo;
         break;
     }
   } else {
@@ -60,6 +70,11 @@ export default function BinaryEncoder({
         inputTxt = basEncInput;
         outputTxt = basEncOutput;
         encode = encodeBas;
+        break;
+      case "emo":
+        inputTxt = emoEncInput;
+        outputTxt = emoEncOutput;
+        encode = encodeEmo;
         break;
     }
   }
@@ -235,6 +250,44 @@ export default function BinaryEncoder({
     outputTxt.set(output);
   }
 
+  // Emoji evasion -----------------------------------------
+
+  const TAG_BASE = 0xE0000;
+  const CANCEL_TAG = 0xE007F;
+
+  function encodeEmo(text: string) {
+    inputTxt.set(text);
+
+    let output = "🦐";
+
+    for (const c of text) {
+      output += String.fromCodePoint(TAG_BASE + c.codePointAt(0));
+    }
+
+    output += String.fromCodePoint(CANCEL_TAG);
+
+    setcodedText(output);
+    outputTxt.set(output);
+  }
+
+  function decodeEmo(text: string) {
+    inputTxt.set(text);
+    
+    let output = "";
+
+    for (const c of text) {
+      if(c.codePointAt(0) == CANCEL_TAG || c == "🦐"){
+        continue
+      }
+
+      output += String.fromCodePoint(c.codePointAt(0) - TAG_BASE);
+    }
+
+
+    setcodedText(output);
+    outputTxt.set(output);
+  }
+
   // ------------------------------------------------------
   return (
     <div className="flex flex-col md:flex-row flex-1 overflow-y-auto">
@@ -252,7 +305,7 @@ export default function BinaryEncoder({
       <div className="m-5 flex-1 flex flex-col justify-center items-center">
         <div
           id="result"
-          className="overflow-auto p-2.5 m-2 flex-1 w-full text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+          className="overflow-auto break-all p-2.5 m-2 flex-1 w-full text-sm rounded-lg border bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
         >
           {codedText}
         </div>
